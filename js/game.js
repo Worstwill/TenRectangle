@@ -3,6 +3,7 @@ const maxHits = 10;
 
 let hits = 0;
 let firstHitTime = 0;
+let mis = 0;
 
 function round() {
   $(".target").removeClass("target");
@@ -24,7 +25,9 @@ function endGame() {
 
   let totalPlayedMillis = getTimestamp() - firstHitTime;
   let totalPlayedSeconds = Number(totalPlayedMillis / 1000).toPrecision(3);
+  let totalMis = hits - mis;
   $("#total-time-played").text(totalPlayedSeconds);
+  $("#total-mis").text(totalMis);
 
   $("#win-message").removeClass("d-none");
 }
@@ -35,7 +38,9 @@ function handleClick(event) {
     hits = hits + 1;
     target.text("")
     round();
-  } else { $(event.target).addClass("miss"); }
+  } else { $(event.target).addClass("miss");
+      mis = mis + 1;
+      }
 }
 
 function init() {
